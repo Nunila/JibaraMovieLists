@@ -1,0 +1,9 @@
+
+.idea
+FirebaseBE/.idea
+jibara_movie_lists/.idea
+
+FirebaseBE/venv
+FirebaseBE/src/__pycache__
+FirebaseBE/src/configuration/__pycache__
+FirebaseBE/src/handler/__pycache__
