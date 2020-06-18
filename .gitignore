@@ -9,6 +9,7 @@ FirebaseBE/venv
 FirebaseBE/src/__pycache__
 FirebaseBE/src/configuration/__pycache__
 FirebaseBE/src/handler/__pycache__
+FirebaseBE/__init__.pyc
 FirebaseBE/src/__init__.pyc
 FirebaseBE/src/app.pyc
 
@@ -16,6 +17,7 @@ FirebaseBE/src/configuration/__init__.pyc
 FirebaseBE/src/configuration/Initialization.pyc
 
 FirebaseBE/src/handler/__init__.pyc
+FirebaseBE/src/handler/ListHandler.pyc
 FirebaseBE/src/handler/AuthHandler.pyc
 FirebaseBE/src/handler/ExceptionHandler.pyc
 FirebaseBE/src/handler/UserHandler.pyc
