@@ -1,11 +1,14 @@
 import requests
 from flask import jsonify
 import json
-from src.configuration.Initialization import auth
+from FirebaseBE.src.configuration.Initialization import auth
 from .UserHandler import UserHandler
 
 
 class AuthHandler:
+
+    token = ''
+    user_id = ''
 
     def login_user(self, user_info):
 
@@ -27,9 +30,9 @@ class AuthHandler:
             # print(message, code)
             return {'success': False, 'mess': message, 'code': code}
         else:
-            user_id = user['localId']
-            token = user['idToken']
-            return UserHandler().get_user_info(user_id, token)
+            self.user_id = user['localId']
+            self.token = user['idToken']
+            return UserHandler().get_user_info(self)
 
         # # Pass the user's idToken to the push method
         # # results = db.child("users").child(user['localId']).get(user['idToken'])

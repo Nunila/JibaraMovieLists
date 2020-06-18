@@ -15,6 +15,7 @@ import { withStyles } from '@material-ui/core/styles';
 import favicon from '../assets/images/favicon.ico';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { withRouter, useHistory } from 'react-router-dom';
 
 
 class LoginComponent extends React.Component {
@@ -24,13 +25,18 @@ class LoginComponent extends React.Component {
         this.state = {
             date: new Date(),
             email: "",
-            password: ""
+            password: "",
         };
 
         this.updatePass = this.updatePass.bind(this);
         this.updateEmail = this.updateEmail.bind(this);
         this.loginUser = this.loginUser.bind(this);
 
+    }
+
+    goToHome() {
+        let path = `home`;
+        this.props.history.push(path);
     }
     render() {
         const { classes } = this.props;
@@ -127,11 +133,6 @@ class LoginComponent extends React.Component {
         console.log(this.state.email);
         console.log(this.state.password)
 
-        // let user = {
-        //     email: this.state.email,
-        //     password: this.state.password
-        // }
-
         let config = {
             headers: {
                 'Access-Control-Allow-Origin': "*",
@@ -143,10 +144,11 @@ class LoginComponent extends React.Component {
             .then(res => {
                 console.log(res);
                 console.log(res.data);
+                this.goToHome()
             })
             .catch(e => {
-                alert("Error message: " + e.response.data.message + "\nStatus Code: " + e.response.status)
-
+                // alert("Error message: " + e.response.data.message + "\nStatus Code: " + e.response.status)
+                console.log(e)
             })
     }
 }
@@ -161,9 +163,9 @@ const styles = theme => ({
     },
     image: {
         // Movie poster collage
-        // backgroundImage: 'url(https://moviesfilmsandflix.files.wordpress.com/2013/03/massive-b-horror-collage-wallpaper-horror-movies-29491579-2560-1600.jpg)',
+        backgroundImage: 'url(https://moviesfilmsandflix.files.wordpress.com/2013/03/massive-b-horror-collage-wallpaper-horror-movies-29491579-2560-1600.jpg)',
         // Random cat gif
-        backgroundImage: 'url(http://thecatapi.com/api/images/get?format=src&type=gif)',
+        // backgroundImage: 'url(http://thecatapi.com/api/images/get?format=src&type=gif)',
 
         backgroundRepeat: 'no-repeat',
         backgroundColor:
@@ -193,4 +195,4 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(LoginComponent);
+export default withRouter(withStyles(styles)(LoginComponent));

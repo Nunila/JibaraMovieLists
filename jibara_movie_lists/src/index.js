@@ -1,11 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from "./App";
-import LoginComponent from "./components/LoginComponent";
+import RouterConfig from "./router";
+import Provider from "./state/Provider"
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
-const login = <LoginComponent/>
+const darkTheme = createMuiTheme({
+                                     palette: {
+                                         type: 'dark',
+                                     }
+                                 });
+
+const wrapper = <Provider>
+        <ThemeProvider theme={darkTheme}>
+        <RouterConfig/>
+    </ThemeProvider>
+</Provider>
+
 
 ReactDOM.render(
-    login,
+    wrapper,
     document.getElementById('root')
 );
