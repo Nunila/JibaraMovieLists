@@ -1,8 +1,11 @@
-import Context from './Context';
+import UserContext from './UserContext';
 import React from "react";
 
-export default class Provider extends React.Component {
+export default class UserProvider extends React.Component {
     state = {
+        userName: "",
+        lists:  "",
+
         cars: {
             car001: { name: 'Honda', price: 100 },
             car002: { name: 'BMW', price: 150 },
@@ -12,8 +15,17 @@ export default class Provider extends React.Component {
 
     render() {
         return (
-            <Context.Provider
+            <UserContext.Provider
                 value={{
+                    userName: this.state.userName,
+                    lists: this.state.lists,
+                    setUserInfo: (name, lists) => {
+                        this.setState({
+                            userName: name,
+                            lists: lists
+                                      })
+                        console.log(this.state.userName)
+                    },
                     cars: this.state.cars,
                     incrementPrice: selectedID => {
                         const cars = Object.assign({}, this.state.cars);
@@ -32,7 +44,7 @@ export default class Provider extends React.Component {
                 }}
             >
                 {this.props.children}
-            </Context.Provider>
+            </UserContext.Provider>
         );
     }
 }

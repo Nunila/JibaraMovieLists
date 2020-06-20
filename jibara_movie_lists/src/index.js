@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RouterConfig from "./router";
-import Provider from "./state/Provider"
+import UserProvider from "./state/UserProvider"
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const darkTheme = createMuiTheme({
@@ -10,11 +10,12 @@ const darkTheme = createMuiTheme({
                                      }
                                  });
 
-const wrapper = <Provider>
+const wrapper =
+    <UserProvider>
         <ThemeProvider theme={darkTheme}>
-        <RouterConfig/>
-    </ThemeProvider>
-</Provider>
+            <RouterConfig/>
+        </ThemeProvider>
+    </UserProvider>
 
 
 ReactDOM.render(

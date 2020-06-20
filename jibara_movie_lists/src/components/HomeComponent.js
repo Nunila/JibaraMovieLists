@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import UserContext from "../state/UserContext";
 
 
 class HomeComponent extends React.Component {
@@ -11,15 +12,27 @@ class HomeComponent extends React.Component {
             isLogged : false,
         };
 
+        console.log("props")
+        console.log(this.props.parentState)
+
         // this.updatePass = this.updatePass.bind(this);
         // this.updateEmail = this.updateEmail.bind(this);
         // this.loginUser = this.loginUser.bind(this);
 
     }
     render() {
-        const { classes } = this.props;
+        // const { classes } = this.props;
         return (
-            <h1> WELCOME </h1>
+            <UserContext.Consumer>
+                {context => (
+                    <div>
+                        <h1> WELCOME </h1>
+                        <h2> {context.userName} </h2>
+                        <h2> {context.lists} </h2>
+                    </div>
+
+                )}
+            </UserContext.Consumer>
         );
     }
 

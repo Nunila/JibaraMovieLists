@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,9 +13,11 @@ import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 import favicon from '../assets/images/favicon.ico';
-import PropTypes from 'prop-types';
+import PropTypes, {func} from 'prop-types';
 import axios from 'axios';
-import { withRouter, useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import UserContext from "../state/UserContext";
+import LoginButton from "./LoginButton";
 
 
 class LoginComponent extends React.Component {
@@ -26,12 +28,13 @@ class LoginComponent extends React.Component {
             date: new Date(),
             email: "",
             password: "",
+            userName: "",
+            lists: ""
         };
 
         this.updatePass = this.updatePass.bind(this);
         this.updateEmail = this.updateEmail.bind(this);
         this.loginUser = this.loginUser.bind(this);
-
     }
 
     goToHome() {
@@ -41,84 +44,92 @@ class LoginComponent extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <Grid container component="main" className={classes.root}>
-                <CssBaseline />
-                <Grid item xs={false} sm={4} md={7} className={classes.image} />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
-                    <div className={classes.paper}>
-                        <Avatar className={classes.avatar} src={favicon}>
-                            {/*<LockOutlinedIcon />*/}
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign in
-                        </Typography>
-                        <form className={classes.form} noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                value={this.state.email}
-                                onChange={this.updateEmail}
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                value={this.state.password}
-                                onChange={this.updatePass}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
-                            <Button
-                                // type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={[classes.submit, classes.gradientBack].join(" ")}
-                                onClick={this.loginUser}
-                            >
-                                Sign In
-                            </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
+            <UserContext.Consumer>
+                { context => (
+                <Grid container component="main" className={classes.root}>
+                    <CssBaseline />
+                    <Grid item xs={false} sm={4} md={7} className={classes.image} />
+                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
+                        <div className={classes.paper}>
+                            <Avatar className={classes.avatar} src={favicon}>
+                                {/*<LockOutlinedIcon />*/}
+                            </Avatar>
+                            <Typography component="h1" variant="h5">
+                                Sign in
+                            </Typography>
+                            <form className={classes.form} noValidate>
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    autoFocus
+                                    value={this.state.email}
+                                    onChange={this.updateEmail}
+                                />
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    value={this.state.password}
+                                    onChange={this.updatePass}
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="remember" color="primary" />}
+                                    label="Remember me"
+                                />
+
+
+                                <Button
+                                    // type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={[classes.submit, classes.gradientBack].join(" ")}
+                                    onClick={this.loginUser}
+                                >
+                                    Sign In
+                                </Button>
+
+
+                                <Grid container>
+                                    <Grid item xs>
+                                        <Link href="#" variant="body2">
+                                            Forgot password?
+                                        </Link>
+                                    </Grid>
+                                    <Grid item>
+                                        <Link href="#" variant="body2">
+                                            {"Don't have an account? Sign Up"}
+                                        </Link>
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                            <Box mt={5}>
-                                <Typography variant="body2" color="textSecondary" align="center">
-                                    {'Copyright © '}
-                                    <Link color="inherit" href="https://material-ui.com/">
-                                        Your Website
-                                    </Link>{' '}
-                                    {new Date().getFullYear()}
-                                    {'.'}
-                                </Typography>
-                            </Box>
-                        </form>
-                    </div>
+                                <Box mt={5}>
+                                    <Typography variant="body2" color="textSecondary" align="center">
+                                        {'Copyright © '}
+                                        <Link color="inherit" href="https://material-ui.com/">
+                                            Your Website
+                                        </Link>{' '}
+                                        {new Date().getFullYear()}
+                                        {'.'}
+                                    </Typography>
+                                </Box>
+                            </form>
+                        </div>
+                    </Grid>
                 </Grid>
-            </Grid>
+                )}
+            </UserContext.Consumer>
         );
     }
 
@@ -139,11 +150,15 @@ class LoginComponent extends React.Component {
                 'Content-Type': 'application/json',
             }
         }
+
         axios.post(`http://localhost:5000/login`, { email: this.state.email,
             password: this.state.password }, config)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
+
+                this.setState({userName: res.data.name, lists: res.data['user_lists']});
+
                 this.goToHome()
             })
             .catch(e => {
@@ -151,6 +166,7 @@ class LoginComponent extends React.Component {
                 console.log(e)
             })
     }
+
 }
 
 LoginComponent.propTypes = {
