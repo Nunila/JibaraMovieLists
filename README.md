@@ -1,6 +1,7 @@
 
 # How to start:
 BackEnd: run `flask run` on FirebaseBE/src
+
 FE: run `npm start` on jibara_movie_lists
  
 
